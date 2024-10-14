@@ -4,11 +4,11 @@ import interfaces.IRecipe;
 import java.util.ArrayList;
 
 public class Dinner extends RecipeBase implements IRecipe {
-    protected Dinner(int id, String title, String instructions, ArrayList<IIngredient> ingredients) {
+    public Dinner(int id, String title, String instructions, ArrayList<IIngredient> ingredients) {
         super(id, title, instructions, ingredients);
     }
 
-    protected Dinner(String title, String instructions, ArrayList<IIngredient> ingredients) {
+    public Dinner(String title, String instructions, ArrayList<IIngredient> ingredients) {
         super(title, instructions, ingredients);
     }
 
