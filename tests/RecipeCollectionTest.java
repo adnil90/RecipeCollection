@@ -16,20 +16,20 @@ public class RecipeCollectionTest {
 
     @Test
     void shouldInsertAndDisplayAllRecipes() {
-        ArrayList<IRecipe> recipes = new ArrayList<IRecipe>();
-        recipes.add(recipe);
-        assertEquals(recipes, recipeCollection.all());
+        ArrayList<IRecipe> recipes = recipeCollection.findAll();
+        assertEquals(1, recipes.size());
+        assertTrue(recipes.contains(recipe));
     }
 
     @Test
     void shouldFindRecipe() {
-        assertEquals(recipe, recipeCollection.find(1));
+        assertEquals(recipe, recipeCollection.findOne(1));
     }
 
     @Test
     void shouldDeleteRecipe() {
         recipeCollection.delete(1);
-        assertNull(recipeCollection.find(1));
+        assertThrows(recipeCollection.findOne(1));
     }
 }
 
