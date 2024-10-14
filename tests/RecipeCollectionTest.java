@@ -1,4 +1,7 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import interfaces.IRecipe;
+import interfaces.IRecipeCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ public class RecipeCollectionTest {
 
     @BeforeEach
     void setUp() {
-        recipe = new Lunch(1, "titel", "instruktioner", ingredients);
+        recipe = new Lunch(1, "titel", "instruktioner");
         recipeCollection = new RecipeCollection();
         recipeCollection.insert(recipe);
     }
