@@ -56,7 +56,19 @@ public abstract class RecipeBase implements IRecipe {
 
     @Override
     public void insertIngredient(IIngredient ingredient) {
-        this.ingredients.add(ingredient);
+        for (IIngredient i : ingredients) {
+            if (i.getId() != ingredient.getId()) continue;
+            throw new IllegalArgumentException("En ingrediens med samma ID finns redan.");
+        }
+
+        IIngredient newIngredient = new Ingredient(
+                this.getNextId(),
+                ingredient.getAmount(),
+                ingredient.getMeasurement(),
+                ingredient.getName()
+        );
+
+        this.ingredients.add(newIngredient);
     }
 
     @Override
@@ -78,4 +90,12 @@ public abstract class RecipeBase implements IRecipe {
     }
 
     public abstract String getCategory();
+
+    private int getNextId() {
+        if (this.ingredients.isEmpty()) {
+            return 1;
+        } else {
+            return this.ingredients.getLast().getId() + 1;
+        }
+    }
 }
