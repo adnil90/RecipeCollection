@@ -1,10 +1,11 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 import interfaces.IIngredient;
 import interfaces.IRecipe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
     private IRecipe recipe;
@@ -15,7 +16,7 @@ public class RecipeTest {
     void setUp() {
         ingredient1 = new Ingredient(1, 8.5f, "dl", "Multisodiumglutamat");
         ingredient2 = new Ingredient(2, 5f, "g", "Salt");
-        ArrayList<IIngredient> ingredients = new ArrayList<IIngredient>();
+        ArrayList<IIngredient> ingredients = new ArrayList<>();
         ingredients.add(ingredient1);
         ingredients.add(ingredient2);
         recipe = new Lunch(1, "titel", "instruktioner", ingredients);
@@ -68,10 +69,13 @@ public class RecipeTest {
 
     @Test
     void shouldInsertIngredient() {
-        IIngredient newIngredient = new Ingredient(3, 2f, "tesked", "Socker");
+        IIngredient newIngredient = new Ingredient(2f, "tesked", "Socker");
         recipe.insertIngredient(newIngredient);
         assertEquals(3, recipe.getIngredients().size());
-        assertTrue(recipe.getIngredients().contains(newIngredient));
+        assertEquals(3, recipe.getIngredients().getLast().getId());
+        assertEquals(2f, recipe.getIngredients().getLast().getAmount());
+        assertEquals("tesked", recipe.getIngredients().getLast().getMeasurement());
+        assertEquals("Socker", recipe.getIngredients().getLast().getName());
     }
 
     @Test
