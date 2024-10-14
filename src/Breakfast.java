@@ -12,6 +12,10 @@ public class Breakfast extends RecipeBase implements IRecipe {
         super(title, instructions, ingredients);
     }
 
+    public Breakfast(String title) {
+        super(title);
+    }
+
     @Override
     public String getCategory() {
         return "Frukost";

@@ -20,6 +20,10 @@ public abstract class RecipeBase implements IRecipe {
         this(-1, title, instructions, ingredients);
     }
 
+    protected RecipeBase(String title) {
+        this(-1, title, "", new ArrayList<>());
+    }
+
     @Override
     public int getId() {
         return this.id;

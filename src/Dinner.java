@@ -12,6 +12,10 @@ public class Dinner extends RecipeBase implements IRecipe {
         super(title, instructions, ingredients);
     }
 
+    public Dinner(String title) {
+        super(title);
+    }
+
     @Override
     public String getCategory() {
         return "Middag";
