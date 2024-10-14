@@ -12,7 +12,7 @@ public class RecipeTest {
     void setUp() {
         ingredient1 = new Ingredient(1, 8.5f, "dl", "Multisodiumglutamat");
         ingredient2 = new Ingredient(2, 5f, "g", "Salt");
-        ArrayList<IIngredient> ingredients = new ArrayList<>();
+        ArrayList<IIngredient> ingredients = new ArrayList<IIngredient>();
         ingredients.add(ingredient1);
         ingredients.add(ingredient2);
         recipe = new Lunch(1, "titel", "instruktioner", ingredients);
