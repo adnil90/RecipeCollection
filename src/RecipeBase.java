@@ -89,6 +89,12 @@ public abstract class RecipeBase implements IRecipe {
         }
     }
 
+    @Override
+    public String toString() {
+        // TODO: Bygg denna override metoden så att den fungerar som i testet.
+        return "";
+    }
+
     public abstract String getCategory();
 
     private int getNextId() {
