@@ -1,0 +1,19 @@
+import interfaces.IIngredient;
+import interfaces.IRecipe;
+
+import java.util.ArrayList;
+
+public class Dinner extends RecipeBase implements IRecipe {
+    protected Dinner(int id, String title, String instructions, ArrayList<IIngredient> ingredients) {
+        super(id, title, instructions, ingredients);
+    }
+
+    protected Dinner(String title, String instructions, ArrayList<IIngredient> ingredients) {
+        super(title, instructions, ingredients);
+    }
+
+    @Override
+    public String getCategory() {
+        return "Middag";
+    }
+}

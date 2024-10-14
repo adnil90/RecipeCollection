@@ -3,20 +3,20 @@ import interfaces.IRecipe;
 
 import java.util.ArrayList;
 
-public abstract class Recipe implements IRecipe {
+public abstract class RecipeBase implements IRecipe {
     private final int id;
     private final ArrayList<IIngredient> ingredients;
     private String title;
     private String instructions;
 
-    public Recipe(int id, String title, String instructions, ArrayList<IIngredient> ingredients) {
+    protected RecipeBase(int id, String title, String instructions, ArrayList<IIngredient> ingredients) {
         this.id = id;
         this.title = title;
         this.instructions = instructions;
         this.ingredients = ingredients;
     }
 
-    public Recipe(String title, String instructions, ArrayList<IIngredient> ingredients) {
+    protected RecipeBase(String title, String instructions, ArrayList<IIngredient> ingredients) {
         this(-1, title, instructions, ingredients);
     }
 
