@@ -1,10 +1,11 @@
-import static org.junit.jupiter.api.Assertions.*;
-
 import interfaces.IRecipe;
 import interfaces.IRecipeCollection;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeCollectionTest {
     private IRecipe recipe;
@@ -12,7 +13,7 @@ public class RecipeCollectionTest {
 
     @BeforeEach
     void setUp() {
-        recipe = new Lunch(1, "titel", "instruktioner");
+        recipe = new Lunch("titel");
         recipeCollection = new RecipeCollection();
         recipeCollection.insert(recipe);
     }
@@ -32,7 +33,11 @@ public class RecipeCollectionTest {
     @Test
     void shouldDeleteRecipe() {
         recipeCollection.delete(1);
-        assertThrows(recipeCollection.findOne(1));
+        assertThrows(IllegalArgumentException.class, () -> recipeCollection.findOne(1));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenRecipeNotFound() {
+        assertThrows(IllegalArgumentException.class, () -> recipeCollection.findOne(999));
     }
 }
-
