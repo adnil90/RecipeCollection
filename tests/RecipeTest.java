@@ -92,8 +92,14 @@ public class RecipeTest {
     }
 
     @Test
+    void shouldThrowWhenFindingInvalidIngredient() {
+        assertThrows(IllegalArgumentException.class, () -> recipe.findIngredient(99));
+    }
+
+    @Test
     void shouldReturnFormattedString() {
-        assertEquals("Titel: titel\nKategori: Lunch\nInstruktioner:\ninstruktioner\nIngredienser:\n8.5 dl Multisodiumglutamat\n5 g Salt", recipe.toString());
+        assertEquals("Titel: titel\nKategori: Lunch\n\nInstruktioner:\ninstruktioner\n\n" +
+                "Ingredienser:\n8.5 dl Multisodiumglutamat\n5 g Salt\n", recipe.toString());
     }
 }
 
