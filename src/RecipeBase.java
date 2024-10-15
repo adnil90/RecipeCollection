@@ -72,6 +72,16 @@ public abstract class RecipeBase implements IRecipe {
     }
 
     @Override
+    public IIngredient findIngredient(int id) {
+        for (IIngredient ingredient : this.ingredients) {
+            if (ingredient.getId() == id) {
+                return ingredient;
+            }
+        }
+        throw new IllegalArgumentException("Ingrediensen du söker efter finns inte.");
+    }
+
+    @Override
     public void updateIngredient(IIngredient ingredient) {
         for (int i = 0; i < this.ingredients.size(); i++) {
             if (this.ingredients.get(i).getId() != ingredient.getId()) continue;
@@ -91,9 +101,14 @@ public abstract class RecipeBase implements IRecipe {
 
     @Override
     public String toString() {
-        // TODO: Bygg denna override metoden så att den fungerar som i testet.
-        return "";
+        StringBuilder ingredientList = new StringBuilder();
+        for (IIngredient ingredient : ingredients) {
+            ingredientList.append(ingredient.toString() + "\n");
+        }
+        return String.format("Titel: %s\nKategori: %s\n\nInstruktioner:\n%s\n\nIngredienser:\n%s",
+                this.title, this.getCategory(), this.instructions, ingredientList);
     }
+
 
     public abstract String getCategory();
 
