@@ -92,11 +92,7 @@ public abstract class RecipeBase implements IRecipe {
 
     @Override
     public void deleteIngredient(int id) {
-        for (int i = 0; i < this.ingredients.size(); i++) {
-            if (this.ingredients.get(i).getId() != id) continue;
-            this.ingredients.remove(i);
-            return;
-        }
+        ingredients.removeIf(ingredient -> ingredient.getId() == id);
     }
 
     @Override
@@ -108,7 +104,6 @@ public abstract class RecipeBase implements IRecipe {
         return String.format("Titel: %s\nKategori: %s\n\nInstruktioner:\n%s\n\nIngredienser:\n%s",
                 this.title, this.getCategory(), this.instructions, ingredientList);
     }
-
 
     public abstract String getCategory();
 
