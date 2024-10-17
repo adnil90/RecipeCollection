@@ -203,4 +203,32 @@ public class MenuHandler {
             }
         }
     }
+
+    private float askForFloat(String question) {
+        return this.askForFloat(question, 1f, 9999f);
+    }
+
+    private float askForFloat(String question, float minimum, float maximum) {
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.println(question);
+                float answer = input.nextFloat();
+                input.nextLine();
+                if (answer < minimum) {
+                    throw new IllegalArgumentException(
+                            String.format("Du måste ange ett decimaltal som är större eller lika med %f", minimum)
+                    );
+                }
+                if (answer > maximum) {
+                    throw new IllegalArgumentException(
+                            String.format("Du måste ange ett decimaltal som är mindre eller lika med %f", maximum)
+                    );
+                }
+                return answer;
+            } catch (Exception e) {
+                System.out.println(e.getMessage() + "\n");
+            }
+        }
+    }
 }
