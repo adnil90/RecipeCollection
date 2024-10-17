@@ -1,6 +1,10 @@
 import interfaces.IIngredient;
 
-public class Ingredient implements IIngredient {
+import java.io.Serializable;
+
+public class Ingredient implements IIngredient, Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final int id;
     private float amount;
     private String measurement;

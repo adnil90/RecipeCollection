@@ -1,9 +1,12 @@
 import interfaces.IIngredient;
 import interfaces.IRecipe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class RecipeBase implements IRecipe {
+public abstract class RecipeBase implements IRecipe, Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private final int id;
     private final ArrayList<IIngredient> ingredients;
     private String title;
