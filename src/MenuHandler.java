@@ -136,10 +136,10 @@ public class MenuHandler {
 //                    IIngredient ingredient = this.askForUpdatedIngredient(recipe);
 //                    recipe.updateIngredient(ingredient);
 //                    break;
-//                case 5:
-//                    int removal = this.askForExistingIngredient(recipe);
-//                    recipe.deleteIngredient(removal);
-//                    break;
+                case 5:
+                    int removal = this.askForExistingIngredientId(recipe);
+                    recipe.deleteIngredient(removal);
+                    break;
                 case 0:
                     return;
                 default:
@@ -155,6 +155,21 @@ public class MenuHandler {
         String measurement = this.askForString("Ange mått > ");
         String name = this.askForString("Ange ingrediens > ");
         return new Ingredient(amount, measurement, name);
+    }
+
+    private int askForExistingIngredientId(IRecipe recipe) {
+        ArrayList<String> list = new ArrayList<>();
+
+        list.add("Tillgängliga ingredienser:");
+        for (IIngredient i : recipe.getIngredients()) {
+            list.add(String.format("[%d] (%s)", i.getId(), i.toString()));
+        }
+        list.add("Ange ingrediens > ");
+
+        int maximum = recipe.getIngredients().size();
+        String question = String.join("\n", list);
+
+        return this.askForInteger(question, 1, maximum);
     }
 
     private String askForString(String question) {
