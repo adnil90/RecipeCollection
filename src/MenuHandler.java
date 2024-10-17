@@ -1,3 +1,4 @@
+import interfaces.IIngredient;
 import interfaces.IRecipe;
 import interfaces.IRecipeCollection;
 
@@ -109,9 +110,9 @@ public class MenuHandler {
                 String.format("Ändra %s:", recipe.getTitle()),
                 "[1] Ändra titel",
                 "[2] Ändra instruktioner",
-                // "[3] Lägg till ingrediens", TODO lägg till dessa funktionaliteter
-                // "[4] Ändra ingrediens", TODO
-                // "[5] Ta bort ingrediens", TODO
+                "[3] Lägg till ingrediens",
+                // "[4] Ändra ingrediens", // TODO lägg till dessa funktionaliteter
+                // "[5] Ta bort ingrediens", // TODO
                 "[0] Gå tillbaka"
         };
 
@@ -127,10 +128,10 @@ public class MenuHandler {
                     String instructions = this.askForString("Ange nya instruktioner till receptet > ");
                     recipe.setInstructions(instructions);
                     break;
-//                case 3:
-//                    IIngredient ingredient = this.askForNewIngredient();
-//                    recipe.insertIngredient(ingredient);
-//                    break;
+                case 3:
+                    IIngredient ingredient = this.askForNewIngredient();
+                    recipe.insertIngredient(ingredient);
+                    break;
 //                case 4:
 //                    IIngredient ingredient = this.askForUpdatedIngredient(recipe);
 //                    recipe.updateIngredient(ingredient);
@@ -147,6 +148,13 @@ public class MenuHandler {
 
             recipe = this.recipeCollection.update(recipe);
         }
+    }
+
+    private IIngredient askForNewIngredient() {
+        float amount = this.askForFloat("Ange mängd > ");
+        String measurement = this.askForString("Ange mått > ");
+        String name = this.askForString("Ange ingrediens > ");
+        return new Ingredient(amount, measurement, name);
     }
 
     private String askForString(String question) {
