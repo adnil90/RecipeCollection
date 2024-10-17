@@ -1,6 +1,7 @@
 import interfaces.IRecipe;
 import interfaces.IRecipeCollection;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenuHandler {
@@ -8,6 +9,36 @@ public class MenuHandler {
 
     MenuHandler(IRecipeCollection recipeCollection) {
         this.recipeCollection = recipeCollection;
+    }
+
+    public void handle() {
+        while (true) {
+            ArrayList<String> menu = new ArrayList<>();
+
+            menu.add("Recept:");
+            for (IRecipe r : this.recipeCollection.findAll()) {
+                menu.add(String.format("[%d] %s (%s)", r.getId(), r.getTitle(), r.getCategory()));
+            }
+            menu.add("\n[A] Lägg till ett recept");
+            menu.add("[Q] Avsluta Receptsamling");
+
+            String question = String.join("\n", menu);
+            String answer = this.askForString(question);
+
+            try {
+                if (answer.equals("A") || answer.equals("a")) {
+                    this.createRecipe();
+                } else if (answer.equals("Q") || answer.equals("q")) {
+                    System.exit(0);
+                } else if (Integer.getInteger(answer) > 0) {
+                    this.displayRecipeWithOptions(Integer.getInteger(answer));
+                } else {
+                    System.out.println("Felaktigt svar. Försök igen.");
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private void createRecipe() {
