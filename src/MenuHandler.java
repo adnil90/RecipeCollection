@@ -13,6 +13,7 @@ public class MenuHandler {
     }
 
     public void handle() {
+        System.out.println("Välkommen till Lindas receptsamling!");
         while (true) {
             ArrayList<String> menu = new ArrayList<>();
 
@@ -21,7 +22,8 @@ public class MenuHandler {
                 menu.add(String.format("[%d] %s (%s)", r.getId(), r.getTitle(), r.getCategory()));
             }
             menu.add("\n[A] Lägg till ett recept");
-            menu.add("[Q] Avsluta Receptsamling");
+            menu.add("[Q] Avsluta Receptsamling\n");
+            menu.add("Menyval > ");
 
             String question = String.join("\n", menu);
             String answer = this.askForString(question);
