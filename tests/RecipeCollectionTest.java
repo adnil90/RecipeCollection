@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class RecipeCollectionTest {
     private IRecipe recipe;
@@ -22,12 +23,21 @@ public class RecipeCollectionTest {
     void shouldInsertAndDisplayAllRecipes() {
         ArrayList<IRecipe> recipes = recipeCollection.findAll();
         assertEquals(1, recipes.size());
-        assertTrue(recipes.contains(recipe));
+        assertEquals(1, recipes.getLast().getId());
+        assertEquals("Lunch", recipes.getLast().getCategory());
+        assertEquals("titel", recipes.getLast().getTitle());
     }
 
     @Test
     void shouldFindRecipe() {
-        assertEquals(recipe, recipeCollection.findOne(1));
+        assertEquals(recipeCollection.findAll().getLast(), recipeCollection.findOne(1));
+    }
+
+    @Test
+    void shouldUpdateRecipe() {
+        recipeCollection.update(new Lunch(1, "ny titel", "nya instruktioner", recipe.getIngredients()));
+        assertEquals("ny titel", recipeCollection.findOne(1).getTitle());
+        assertEquals("nya instruktioner", recipeCollection.findOne(1).getInstructions());
     }
 
     @Test
