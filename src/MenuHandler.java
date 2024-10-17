@@ -1,0 +1,88 @@
+import interfaces.IRecipe;
+import interfaces.IRecipeCollection;
+
+import java.util.Scanner;
+
+public class MenuHandler {
+    private final IRecipeCollection recipeCollection;
+
+    MenuHandler(IRecipeCollection recipeCollection) {
+        this.recipeCollection = recipeCollection;
+    }
+
+    private IRecipe createNewRecipe() throws Exception {
+        String title = this.askForString("Ange titel på receptet > ");
+
+        String[] categoryMenu = {
+                "Tillgängliga kategorier:",
+                "[1] Frukost",
+                "[2] Lunch",
+                "[3] Middag",
+                "Ange kategori > "
+        };
+
+        String question = String.join("\n", categoryMenu);
+        int category = this.askForInteger(question, 1, 3);
+
+        switch (category) {
+            case 1:
+                return this.recipeCollection.insert(new Breakfast(title));
+            case 2:
+                return this.recipeCollection.insert(new Lunch(title));
+            case 3:
+                return this.recipeCollection.insert(new Dinner(title));
+            default:
+                throw new Exception("Ett oväntat fel uppstod.");
+        }
+    }
+
+    private String askForString(String question) {
+        return this.askForString(question, 1);
+    }
+
+    private String askForString(String question, int length) {
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.println(question);
+                String answer = input.nextLine();
+                if (answer.length() < length) {
+                    throw new IllegalArgumentException(
+                            String.format("Du måste ange ett svar som är längre än %d", length)
+                    );
+                }
+                return answer;
+            } catch (Exception e) {
+                System.out.println(e.getMessage() + "\n");
+            }
+        }
+    }
+
+    private int askForInteger(String question) {
+        return this.askForInteger(question, 1, 9999);
+    }
+
+    private int askForInteger(String question, int minimum, int maximum) {
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            try {
+                System.out.println(question);
+                int answer = input.nextInt();
+                input.nextLine();
+                if (answer <= minimum) {
+                    throw new IllegalArgumentException(
+                            String.format("Du måste ange ett svar som är större eller lika med %d", minimum)
+                    );
+                }
+                if (answer >= maximum) {
+                    throw new IllegalArgumentException(
+                            String.format("Du måste ange ett svar som är mindre eller lika med %d", maximum)
+                    );
+                }
+                return answer;
+            } catch (Exception e) {
+                System.out.println(e.getMessage() + "\n");
+            }
+        }
+    }
+}
