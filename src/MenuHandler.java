@@ -69,12 +69,12 @@ public class MenuHandler {
                 System.out.println(question);
                 int answer = input.nextInt();
                 input.nextLine();
-                if (answer <= minimum) {
+                if (answer < minimum) {
                     throw new IllegalArgumentException(
                             String.format("Du måste ange ett svar som är större eller lika med %d", minimum)
                     );
                 }
-                if (answer >= maximum) {
+                if (answer > maximum) {
                     throw new IllegalArgumentException(
                             String.format("Du måste ange ett svar som är mindre eller lika med %d", maximum)
                     );
