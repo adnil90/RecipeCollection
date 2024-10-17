@@ -10,7 +10,7 @@ public class MenuHandler {
         this.recipeCollection = recipeCollection;
     }
 
-    private IRecipe createNewRecipe() throws Exception {
+    private IRecipe insertRecipe() throws Exception {
         String title = this.askForString("Ange titel på receptet > ");
 
         String[] categoryMenu = {
