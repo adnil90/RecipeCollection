@@ -72,6 +72,7 @@ public class MenuHandler {
                     return;
                 case "E":
                     this.updateRecipe(recipe);
+                    break;
                 case "D":
                     this.recipeCollection.delete(id);
                     return;
