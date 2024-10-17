@@ -33,8 +33,8 @@ public class MenuHandler {
                     this.createRecipe();
                 } else if (answer.equals("Q") || answer.equals("q")) {
                     System.exit(0);
-                } else if (Integer.getInteger(answer) > 0) {
-                    this.displayRecipeWithOptions(Integer.getInteger(answer));
+                } else if (Integer.parseInt(answer) > 0) {
+                    this.displayRecipeWithOptions(Integer.parseInt(answer));
                 } else {
                     System.out.println("Felaktigt svar. Försök igen.");
                 }
