@@ -36,6 +36,51 @@ public class MenuHandler {
         }
     }
 
+    private void updateRecipe(IRecipe recipe) {
+        String[] menu = {
+                String.format("Ändra %s:", recipe.getTitle()),
+                "[1] Ändra titel",
+                "[2] Ändra instruktioner",
+                // "[3] Lägg till ingrediens", TODO lägg till dessa funktionaliteter
+                // "[4] Ändra ingrediens", TODO
+                // "[5] Ta bort ingrediens", TODO
+                "[0] Gå tillbaka"
+        };
+
+        while (true) {
+            int choice = this.askForInteger(String.join("\n", menu), 0, 5);
+
+            switch (choice) {
+                case 1:
+                    String title = this.askForString("Ange ny titel på receptet > ");
+                    recipe.setTitle(title);
+                    break;
+                case 2:
+                    String instructions = this.askForString("Ange nya instruktioner till receptet > ");
+                    recipe.setInstructions(instructions);
+                    break;
+//                case 3:
+//                    IIngredient ingredient = this.askForNewIngredient();
+//                    recipe.insertIngredient(ingredient);
+//                    break;
+//                case 4:
+//                    IIngredient ingredient = this.askForUpdatedIngredient(recipe);
+//                    recipe.updateIngredient(ingredient);
+//                    break;
+//                case 5:
+//                    int removal = this.askForExistingIngredient(recipe);
+//                    recipe.deleteIngredient(removal);
+//                    break;
+                case 0:
+                    return;
+                default:
+                    return;
+            }
+
+            recipe = this.recipeCollection.update(recipe);
+        }
+    }
+
     private String askForString(String question) {
         return this.askForString(question, 1, 9999);
     }
