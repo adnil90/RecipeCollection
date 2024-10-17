@@ -5,9 +5,16 @@ import java.util.ArrayList;
 
 public class RecipeCollection implements IRecipeCollection {
     private final ArrayList<IRecipe> recipes;
+    private final String file;
 
     public RecipeCollection() {
+        this.file = "";
         this.recipes = new ArrayList<>();
+    }
+
+    public RecipeCollection(String file) {
+        this.file = file;
+        this.recipes = FileHandler.loadFromFile(file);
     }
 
     @Override
@@ -20,6 +27,7 @@ public class RecipeCollection implements IRecipeCollection {
         IRecipe newRecipe = this.cloneRecipeWithNewId(recipe);
 
         this.recipes.add(newRecipe);
+        FileHandler.saveToFile(this.file, this.recipes);
 
         return newRecipe;
     }
@@ -29,6 +37,7 @@ public class RecipeCollection implements IRecipeCollection {
         for (int i = 0; i < this.recipes.size(); i++) {
             if (this.recipes.get(i).getId() != recipe.getId()) continue;
             this.recipes.set(i, recipe);
+            FileHandler.saveToFile(this.file, this.recipes);
             return recipe;
         }
         throw new IllegalArgumentException("Receptet du försökte uppdatera existerar inte i samlingen.");
@@ -37,6 +46,7 @@ public class RecipeCollection implements IRecipeCollection {
     @Override
     public void delete(int id) {
         recipes.removeIf(recipe -> recipe.getId() == id);
+        FileHandler.saveToFile(this.file, this.recipes);
     }
 
     @Override
