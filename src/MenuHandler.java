@@ -33,7 +33,7 @@ public class MenuHandler {
             System.out.println(recipe.toString());
             String answer = this.askForString(question);
 
-            switch (answer) {
+            switch (answer.toUpperCase()) {
                 case "B":
                     return;
                 case "E":
