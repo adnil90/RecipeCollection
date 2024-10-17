@@ -3,9 +3,9 @@ package interfaces;
 import java.util.ArrayList;
 
 public interface IRecipeCollection {
-    void insert(IRecipe recipe);
+    IRecipe insert(IRecipe recipe);
 
-    void update(IRecipe recipe);
+    IRecipe update(IRecipe recipe);
 
     void delete(int id);
 

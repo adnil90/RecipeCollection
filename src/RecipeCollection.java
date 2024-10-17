@@ -11,7 +11,7 @@ public class RecipeCollection implements IRecipeCollection {
     }
 
     @Override
-    public void insert(IRecipe recipe) {
+    public IRecipe insert(IRecipe recipe) {
         for (IRecipe r : recipes) {
             if (r.getId() != recipe.getId()) continue;
             throw new IllegalArgumentException("Ett recept med samma ID finns redan.");
@@ -20,15 +20,18 @@ public class RecipeCollection implements IRecipeCollection {
         IRecipe newRecipe = this.cloneRecipeWithNewId(recipe);
 
         this.recipes.add(newRecipe);
+
+        return newRecipe;
     }
 
     @Override
-    public void update(IRecipe recipe) {
+    public IRecipe update(IRecipe recipe) {
         for (int i = 0; i < this.recipes.size(); i++) {
             if (this.recipes.get(i).getId() != recipe.getId()) continue;
             this.recipes.set(i, recipe);
-            return;
+            return recipe;
         }
+        throw new IllegalArgumentException("Receptet du försökte uppdatera existerar inte i samlingen.");
     }
 
     @Override
