@@ -37,18 +37,23 @@ public class MenuHandler {
     }
 
     private String askForString(String question) {
-        return this.askForString(question, 1);
+        return this.askForString(question, 1, 9999);
     }
 
-    private String askForString(String question, int length) {
+    private String askForString(String question, int minimum, int maximum) {
         Scanner input = new Scanner(System.in);
         while (true) {
             try {
                 System.out.println(question);
                 String answer = input.nextLine();
-                if (answer.length() < length) {
+                if (answer.length() < minimum) {
                     throw new IllegalArgumentException(
-                            String.format("Du måste ange ett svar som är längre än %d", length)
+                            String.format("Du måste ange en sträng som är längre eller exakt %d", minimum)
+                    );
+                }
+                if (answer.length() > maximum) {
+                    throw new IllegalArgumentException(
+                            String.format("Du måste ange en sträng som är kortare eller exakt %d", maximum)
                     );
                 }
                 return answer;
@@ -71,12 +76,12 @@ public class MenuHandler {
                 input.nextLine();
                 if (answer < minimum) {
                     throw new IllegalArgumentException(
-                            String.format("Du måste ange ett svar som är större eller lika med %d", minimum)
+                            String.format("Du måste ange en siffra som är större eller lika med %d", minimum)
                     );
                 }
                 if (answer > maximum) {
                     throw new IllegalArgumentException(
-                            String.format("Du måste ange ett svar som är mindre eller lika med %d", maximum)
+                            String.format("Du måste ange en siffra som är mindre eller lika med %d", maximum)
                     );
                 }
                 return answer;
