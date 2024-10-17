@@ -10,6 +10,15 @@ public class MenuHandler {
         this.recipeCollection = recipeCollection;
     }
 
+    private void createRecipe() {
+        try {
+            IRecipe recipe = this.insertRecipe();
+            this.updateRecipe(recipe);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private IRecipe insertRecipe() throws Exception {
         String title = this.askForString("Ange titel på receptet > ");
 
