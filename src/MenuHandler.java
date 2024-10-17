@@ -109,18 +109,19 @@ public class MenuHandler {
     }
 
     private void updateRecipe(IRecipe recipe) {
-        String[] menu = {
-                String.format("Ändra %s:", recipe.getTitle()),
-                "[1] Ändra titel",
-                "[2] Ändra instruktioner",
-                "[3] Lägg till ingrediens",
-                // "[4] Ändra ingrediens", // TODO lägg till dessa funktionaliteter
-                // "[5] Ta bort ingrediens", // TODO
-                "[0] Gå tillbaka"
-        };
-
         while (true) {
-            int choice = this.askForInteger(String.join("\n", menu), 0, 5);
+            String[] menu = {
+                    String.format("Ändra %s:", recipe.getTitle()),
+                    "[1] Ändra titel",
+                    "[2] Ändra instruktioner",
+                    "[3] Lägg till ingrediens",
+                    // "[4] Ändra ingrediens", // TODO lägg till dessa funktionaliteter
+                    "[5] Ta bort ingrediens",
+                    "[0] Gå tillbaka"
+            };
+            String question = String.join("\n", menu);
+
+            int choice = this.askForInteger(question, 0, 5);
 
             switch (choice) {
                 case 1:
