@@ -10,7 +10,6 @@ public class RecipeCollection implements IRecipeCollection {
         this.recipes = new ArrayList<>();
     }
 
-    // TODO gör klart insert metod
     @Override
     public void insert(IRecipe recipe) {
         for (IRecipe r : recipes) {
@@ -18,11 +17,20 @@ public class RecipeCollection implements IRecipeCollection {
             throw new IllegalArgumentException("Ett recept med samma ID finns redan.");
         }
 
+        IRecipe newRecipe = this.cloneRecipeWithNewId(recipe);
 
-        this.recipes.add(recipe);
+        this.recipes.add(newRecipe);
     }
 
-    // TODO gör klart delete metod
+    @Override
+    public void update(IRecipe recipe) {
+        for (int i = 0; i < this.recipes.size(); i++) {
+            if (this.recipes.get(i).getId() != recipe.getId()) continue;
+            this.recipes.set(i, recipe);
+            return;
+        }
+    }
+
     @Override
     public void delete(int id) {
         recipes.removeIf(recipe -> recipe.getId() == id);
@@ -41,5 +49,44 @@ public class RecipeCollection implements IRecipeCollection {
     @Override
     public ArrayList<IRecipe> findAll() {
         return new ArrayList<>(recipes);
+    }
+
+    private int getNextId() {
+        if (this.recipes.isEmpty()) {
+            return 1;
+        } else {
+            return this.recipes.getLast().getId() + 1;
+        }
+    }
+
+    private IRecipe cloneRecipeWithNewId(IRecipe recipe) {
+        switch (recipe.getCategory()) {
+            case "Frukost":
+                return new Breakfast(
+                        this.getNextId(),
+                        recipe.getTitle(),
+                        recipe.getInstructions(),
+                        recipe.getIngredients()
+                );
+
+            case "Lunch":
+                return new Lunch(
+                        this.getNextId(),
+                        recipe.getTitle(),
+                        recipe.getInstructions(),
+                        recipe.getIngredients()
+                );
+
+            case "Middag":
+                return new Dinner(
+                        this.getNextId(),
+                        recipe.getTitle(),
+                        recipe.getInstructions(),
+                        recipe.getIngredients()
+                );
+
+            default:
+                throw new IllegalArgumentException("Receptet har felaktig Kategori.");
+        }
     }
 }
