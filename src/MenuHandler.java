@@ -19,6 +19,34 @@ public class MenuHandler {
         }
     }
 
+    private void displayRecipeWithOptions(int id) {
+        IRecipe recipe = this.recipeCollection.findOne(id);
+
+        String[] menu = {
+                "[B] Tillbaka",
+                "[E] Ändra",
+                "[D] Ta bort"
+        };
+        String question = String.join(" | ", menu);
+
+        while (true) {
+            System.out.println(recipe.toString());
+            String answer = this.askForString(question);
+
+            switch (answer) {
+                case "B":
+                    return;
+                case "E":
+                    this.updateRecipe(recipe);
+                case "D":
+                    this.recipeCollection.delete(id);
+                    return;
+                default:
+                    System.out.println("Felaktigt svar. Försök igen.");
+            }
+        }
+    }
+
     private IRecipe insertRecipe() throws Exception {
         String title = this.askForString("Ange titel på receptet > ");
 
