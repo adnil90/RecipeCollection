@@ -115,7 +115,7 @@ public class MenuHandler {
                     "[1] Ändra titel",
                     "[2] Ändra instruktioner",
                     "[3] Lägg till ingrediens",
-                    // "[4] Ändra ingrediens", // TODO lägg till dessa funktionaliteter
+                    "[4] Ändra ingrediens",
                     "[5] Ta bort ingrediens",
                     "[0] Gå tillbaka"
             };
@@ -123,34 +123,43 @@ public class MenuHandler {
 
             int choice = this.askForInteger(question, 0, 5);
 
-            switch (choice) {
-                case 1:
-                    String title = this.askForString("Ange ny titel på receptet > ");
-                    recipe.setTitle(title);
-                    break;
-                case 2:
-                    String instructions = this.askForString("Ange nya instruktioner till receptet > ");
-                    recipe.setInstructions(instructions);
-                    break;
-                case 3:
-                    IIngredient ingredient = this.askForNewIngredient();
-                    recipe.insertIngredient(ingredient);
-                    break;
-//                case 4:
-//                    IIngredient ingredient = this.askForUpdatedIngredient(recipe);
-//                    recipe.updateIngredient(ingredient);
-//                    break;
-                case 5:
-                    int removal = this.askForExistingIngredientId(recipe);
-                    recipe.deleteIngredient(removal);
-                    break;
-                case 0:
-                    return;
-                default:
-                    return;
-            }
+            try {
+                switch (choice) {
+                    case 1:
+                        recipe.setTitle(
+                                this.askForString("Ange ny titel på receptet > ")
+                        );
+                        break;
+                    case 2:
+                        recipe.setInstructions(
+                                this.askForString("Ange nya instruktioner till receptet > ")
+                        );
+                        break;
+                    case 3:
+                        recipe.insertIngredient(
+                                this.askForNewIngredient()
+                        );
+                        break;
+                    case 4:
+                        recipe.updateIngredient(
+                                this.askForUpdatedIngredient(recipe)
+                        );
+                        break;
+                    case 5:
+                        recipe.deleteIngredient(
+                                this.askForExistingIngredientId(recipe)
+                        );
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        return;
+                }
 
-            recipe = this.recipeCollection.update(recipe);
+                recipe = this.recipeCollection.update(recipe);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -161,8 +170,33 @@ public class MenuHandler {
         return new Ingredient(amount, measurement, name);
     }
 
-    private int askForExistingIngredientId(IRecipe recipe) {
+    private IIngredient askForUpdatedIngredient(IRecipe recipe) throws Exception {
+        int id = this.askForExistingIngredientId(recipe);
+        IIngredient ingredient = recipe.findIngredient(id);
+
+        float amount = this.askForFloat(
+                String.format("Ange ny mängd (nuvarande: %.1f) > ", ingredient.getAmount())
+        );
+        String measurement = this.askForString(
+                String.format("Ange nytt mått (nuvarande: %s) > ", ingredient.getMeasurement())
+        );
+        String name = this.askForString(
+                String.format("Ange ny ingrediens (nuvarande: %s) > ", ingredient.getName())
+        );
+
+        ingredient.setAmount(amount);
+        ingredient.setMeasurement(measurement);
+        ingredient.setName(name);
+
+        return ingredient;
+    }
+
+    private int askForExistingIngredientId(IRecipe recipe) throws Exception {
         ArrayList<String> list = new ArrayList<>();
+
+        if (recipe.getIngredients().isEmpty()) {
+            throw new Exception("Det finns inga ingredienser tillagda");
+        }
 
         list.add("Tillgängliga ingredienser:");
         for (IIngredient i : recipe.getIngredients()) {
