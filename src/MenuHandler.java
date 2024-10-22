@@ -14,6 +14,7 @@ public class MenuHandler {
 
     public void handle() {
         System.out.println("Välkommen till Lindas receptsamling!");
+
         while (true) {
             ArrayList<String> menu = new ArrayList<>();
 
@@ -39,7 +40,7 @@ public class MenuHandler {
                     System.out.println("Felaktigt svar. Försök igen.");
                 }
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage() + " Felaktigt svar. Försök igen.");
             }
         }
     }
@@ -216,6 +217,7 @@ public class MenuHandler {
 
     private String askForString(String question, int minimum, int maximum) {
         Scanner input = new Scanner(System.in);
+
         while (true) {
             try {
                 System.out.println(question);
@@ -260,7 +262,7 @@ public class MenuHandler {
                 }
                 return answer;
             } catch (Exception e) {
-                System.out.println(e.getMessage() + "\n");
+                System.out.println(e.getMessage() + "\n Ogiltig inmatning. Försök igen");
             }
         }
     }
@@ -271,6 +273,7 @@ public class MenuHandler {
 
     private float askForFloat(String question, float minimum, float maximum) {
         Scanner input = new Scanner(System.in);
+
         while (true) {
             try {
                 System.out.println(question);
