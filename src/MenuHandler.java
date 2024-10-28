@@ -7,9 +7,11 @@ import java.util.Scanner;
 
 public class MenuHandler {
     private final IRecipeCollection recipeCollection;
+    private final Scanner input;
 
     MenuHandler(IRecipeCollection recipeCollection) {
         this.recipeCollection = recipeCollection;
+        this.input = new Scanner(System.in);
     }
 
     public void handle() {
@@ -216,12 +218,10 @@ public class MenuHandler {
     }
 
     private String askForString(String question, int minimum, int maximum) {
-        Scanner input = new Scanner(System.in);
-
         while (true) {
             try {
                 System.out.println(question);
-                String answer = input.nextLine();
+                String answer = this.input.nextLine();
                 if (answer.length() < minimum) {
                     throw new IllegalArgumentException(
                             String.format("Du måste ange en sträng som är längre eller exakt %d", minimum)
@@ -244,12 +244,11 @@ public class MenuHandler {
     }
 
     private int askForInteger(String question, int minimum, int maximum) {
-        Scanner input = new Scanner(System.in);
         while (true) {
             try {
                 System.out.println(question);
-                int answer = input.nextInt();
-                input.nextLine();
+                int answer = this.input.nextInt();
+                this.input.nextLine();
                 if (answer < minimum) {
                     throw new IllegalArgumentException(
                             String.format("Du måste ange en siffra som är större eller lika med %d", minimum)
@@ -272,13 +271,11 @@ public class MenuHandler {
     }
 
     private float askForFloat(String question, float minimum, float maximum) {
-        Scanner input = new Scanner(System.in);
-
         while (true) {
             try {
                 System.out.println(question);
-                float answer = input.nextFloat();
-                input.nextLine();
+                float answer = this.input.nextFloat();
+                this.input.nextLine();
                 if (answer < minimum) {
                     throw new IllegalArgumentException(
                             String.format("Du måste ange ett decimaltal som är större eller lika med %f", minimum)
