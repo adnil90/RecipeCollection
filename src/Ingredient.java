@@ -58,10 +58,12 @@ public class Ingredient implements IIngredient, Serializable {
 
     @Override
     public String toString() {
+        String amount;
         if (this.amount == Math.floor(this.amount)) {
-            return String.format("%.0f %s %s", this.amount, this.measurement, this.name);
+            amount = FloatFormatter.replaceSeparator(String.format("%.0f", this.amount));
         } else {
-            return String.format("%.1f %s %s", this.amount, this.measurement, this.name);
+            amount = FloatFormatter.replaceSeparator(String.format("%.1f", this.amount));
         }
+        return String.format("%s %s %s", amount, this.measurement, this.name);
     }
 }
